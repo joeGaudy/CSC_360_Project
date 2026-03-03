@@ -79,7 +79,6 @@ class RobotTournamentTest
 		assertEquals("Cooperate", sameRobot.makeDecision());
 	}
 
-
 	@Test
 	void testBothCooperateScoring()
 	{
@@ -109,7 +108,14 @@ class RobotTournamentTest
 		assertEquals(21, r1.score);
 		assertEquals(1, r2.score);
 	}
-
+	
+	@Test
+	void testEmptyTournamentReturnsNull()
+	{
+		ArrayList<Robot> robots = new ArrayList<>();
+		RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
+		assertNull(tournament.runTournament());
+	}
 
 	@Test
 	void testRoundRobinDefectorWins()
@@ -124,7 +130,6 @@ class RobotTournamentTest
 
 		assertEquals("Defector", winner.name);
 	}
-
 
 	@Test
 	void testMoveLoggingCreatesFile() throws IOException
