@@ -42,7 +42,11 @@ public class PrisonersDelimmaGame extends Game
 				p2.score += 5;
 				p2.totalScore += 5;
 			}
+			
+			notifyMoveObserver(p1.name + ": " + p1Decision + " | " + p2.name + ": " + p2Decision);
 		}
+		
+		notifyScoreObserver(p1.name + ": " + p1.score + " | " + p2.name + ": " + p2.score);
 		
 	}
 
