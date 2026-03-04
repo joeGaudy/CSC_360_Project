@@ -48,14 +48,14 @@ class RobotTournamentTest
 	@Test
 	void testOppositeRobotPrevDecDefect()
 	{
-		oppositeRobot.oppsPrevDecision = "Defect";
+		oppositeRobot.setOppsPrevDecision("Defect");
 		assertEquals("Cooperate", oppositeRobot.makeDecision());
 	}
 
 	@Test
 	void testOppositeRobotPrevDecCooperate()
 	{
-		oppositeRobot.oppsPrevDecision = "Cooperate";
+		oppositeRobot.setOppsPrevDecision("Cooperate");
 		assertEquals("Defect", oppositeRobot.makeDecision());
 	}
 
@@ -68,14 +68,14 @@ class RobotTournamentTest
 	@Test
 	void testSameRobotMimicDefect()
 	{
-		sameRobot.oppsPrevDecision = "Defect";
+		sameRobot.setOppsPrevDecision("Defect");
 		assertEquals("Defect", sameRobot.makeDecision());
 	}
 
 	@Test
 	void testSameRobotMimicCooperate()
 	{
-		sameRobot.oppsPrevDecision = "Cooperate";
+		sameRobot.setOppsPrevDecision("Cooperate");
 		assertEquals("Cooperate", sameRobot.makeDecision());
 	}
 
@@ -85,8 +85,8 @@ class RobotTournamentTest
 		PrisonerSameRobot r1 = new PrisonerSameRobot("R1");
 		PrisonerSameRobot r2 = new PrisonerSameRobot("R2");
 		game.playGame(r1, r2);
-		assertEquals(15, r1.score);
-		assertEquals(15, r2.score);
+		assertEquals(15, r1.getScore());
+		assertEquals(15, r2.getScore());
 	}
 
 	@Test
@@ -95,8 +95,8 @@ class RobotTournamentTest
 		PrisonerDefectRobot r1 = new PrisonerDefectRobot("R1");
 		PrisonerDefectRobot r2 = new PrisonerDefectRobot("R2");
 		game.playGame(r1, r2);
-		assertEquals(5, r1.score);
-		assertEquals(5, r2.score);
+		assertEquals(5, r1.getScore());
+		assertEquals(5, r2.getScore());
 	}
 
 	@Test
@@ -105,10 +105,10 @@ class RobotTournamentTest
 		PrisonerDefectRobot r1 = new PrisonerDefectRobot("R1");
 		PrisonerOppositeRobot r2 = new PrisonerOppositeRobot("R2");
 		game.playGame(r1, r2);
-		assertEquals(21, r1.score);
-		assertEquals(1, r2.score);
+		assertEquals(21, r1.getScore());
+		assertEquals(1, r2.getScore());
 	}
-	
+
 	@Test
 	void testEmptyTournamentReturnsNull()
 	{
@@ -128,7 +128,7 @@ class RobotTournamentTest
 		RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
 		Robot winner = tournament.runTournament();
 
-		assertEquals("Defector", winner.name);
+		assertEquals("Defector", winner.getName());
 	}
 
 	@Test

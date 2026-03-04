@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public abstract class Game
 {
 	int gameRounds;
-	ArrayList<ScoreObserver> ScoreObservers = new ArrayList<ScoreObserver>();
-	ArrayList<MoveObserver> MoveObservers = new ArrayList<MoveObserver>();
+	ArrayList<ScoreObserver> scoreObservers = new ArrayList<ScoreObserver>();
+	ArrayList<MoveObserver> moveObservers = new ArrayList<MoveObserver>();
 	
 	public Game(int gameRounds) {
 		this.gameRounds = gameRounds;
@@ -14,31 +14,31 @@ public abstract class Game
 	
 	public abstract void playGame(Robot p1, Robot p2);
 	
-	public void registerScoreObserver(ScoreObserver ScoreObs) {
-		ScoreObservers.add(ScoreObs);
+	public void registerScoreObserver(ScoreObserver scoreObs) {
+		scoreObservers.add(scoreObs);
 	}
 	
-	public void registerMoveObserver(MoveObserver MoveObs) {
-		MoveObservers.add(MoveObs);
+	public void registerMoveObserver(MoveObserver moveObs) {
+		moveObservers.add(moveObs);
 	}
 	
-	public void unregisterScoreObserver(ScoreObserver ScoreObs) {
-		ScoreObservers.remove(ScoreObs);
+	public void unregisterScoreObserver(ScoreObserver scoreObs) {
+		scoreObservers.remove(scoreObs);
 	}
 	
-	public void unregisterMoveObserver(MoveObserver MoveObs) {
-		MoveObservers.remove(MoveObs);
+	public void unregisterMoveObserver(MoveObserver moveObs) {
+		moveObservers.remove(moveObs);
 	}
 	
 	public void notifyScoreObserver(String score) {
-		for (ScoreObserver ScoreObserver : ScoreObservers) {
-			ScoreObserver.updateScore(score);
+		for (ScoreObserver scoreObs : scoreObservers) {
+			scoreObs.updateScore(score);
 		}
 	}
 	
 	public void notifyMoveObserver(String move) {
-		for (MoveObserver MoveObserver : MoveObservers) {
-			MoveObserver.updateMove(move);
+		for (MoveObserver moveObs : moveObservers) {
+			moveObs.updateMove(move);
 		}
 	}
 	

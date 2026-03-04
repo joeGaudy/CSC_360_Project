@@ -11,10 +11,10 @@ public class PrisonerSameRobot extends Robot
 	@Override
 	public String makeDecision()
 	{
-		if (oppsPrevDecision.equals("Cooperate")) {
+		if (getOppsPrevDecision().equals("Cooperate")) {
 			return "Cooperate";
 		}
-		else if (this.oppsPrevDecision.equals("Defect")) {
+		else if (this.getOppsPrevDecision().equals("Defect")) {
 			return "Defect";
 		}
 		else {

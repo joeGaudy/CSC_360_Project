@@ -17,9 +17,8 @@ public class RoundRobinTournament extends Tournament
 		
 		int numPlayers = participants.size();
 		
-		
 		for (int i = 0; i < numPlayers; i++) {
-			participants.get(i).totalScore = 0;
+			participants.get(i).setTotalScore(0);
 		}
 		
 		for (int i = 0; i < numPlayers; i++) {
@@ -30,7 +29,7 @@ public class RoundRobinTournament extends Tournament
 		
 		Robot winner = participants.get(0);
 		for (Robot robot : participants) {
-		    if (robot.totalScore > winner.totalScore) {
+		    if (robot.getTotalScore() > winner.getTotalScore()) {
 		        winner = robot;
 		    }
 		}
