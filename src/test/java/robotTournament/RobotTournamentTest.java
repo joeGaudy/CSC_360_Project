@@ -130,6 +130,20 @@ class RobotTournamentTest
 
 		assertEquals("Defector", winner.getName());
 	}
+	
+	@Test
+	void testRoundRobinWinnerNotFirstInList()
+	{
+	    ArrayList<Robot> robots = new ArrayList<>();
+	    robots.add(oppositeRobot);  
+	    robots.add(sameRobot);
+	    robots.add(defectRobot);    
+
+	    RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
+	    Robot winner = tournament.runTournament();
+
+	    assertEquals("Defector", winner.getName());
+	}
 
 	@Test
 	void testMoveLoggingCreatesFile() throws IOException
