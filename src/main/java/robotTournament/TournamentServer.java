@@ -17,8 +17,18 @@ public class TournamentServer
 	Map<String, Tournament> serverTournaments = new HashMap<>();
 	Map<String, RemoteClientRobot> serverClients = new HashMap<>();
 	
-	private void addClient(RemoteClientRobot client) {
+	private void addClient(RemoteClientRobot client) 
+	{
 	    serverClients.put(client.getName(),client);
+	}
+	
+	public void addTournament(Tournament tournament) 
+	{
+		if (!serverTournaments.containsKey(tournament.getID()))
+		{
+			serverTournaments.put(tournament.getID(), tournament);
+		}
+		
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
@@ -54,7 +64,7 @@ public class TournamentServer
 	
 	@ResponseStatus(HttpStatus.OK)
     @GetMapping("/runTournament/{tournamentID}")
-	public String startTournament(String tournamentID)
+	public String startTournament(@PathVariable String tournamentID)
 	{
 		Tournament tournament = serverTournaments.get(tournamentID);
 		

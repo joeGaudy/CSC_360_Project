@@ -18,7 +18,7 @@ public class HumanRobot extends Robot
 	{
 		if (!this.getOppsPrevDecision().equals(""))
 		{
-			System.out.println("Your openent's previous decision: " + this.getOppsPrevDecision());
+			System.out.println("Your opponent's previous decision: " + this.getOppsPrevDecision());
 		}
 		System.out.println("Enter your decision with the first letter capitilized: ");
 		String decision = scanner.nextLine();
