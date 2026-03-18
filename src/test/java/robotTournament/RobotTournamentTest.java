@@ -113,7 +113,7 @@ class RobotTournamentTest
 	void testEmptyTournamentReturnsNull()
 	{
 		ArrayList<Robot> robots = new ArrayList<>();
-		RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
+		RoundRobinTournament tournament = new RoundRobinTournament(robots, game, "0");
 		assertNull(tournament.runTournament());
 	}
 
@@ -125,7 +125,7 @@ class RobotTournamentTest
 		robots.add(oppositeRobot);
 		robots.add(sameRobot);
 
-		RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
+		RoundRobinTournament tournament = new RoundRobinTournament(robots, game, "1");
 		Robot winner = tournament.runTournament();
 
 		assertEquals("Defector", winner.getName());
@@ -139,7 +139,7 @@ class RobotTournamentTest
 	    robots.add(sameRobot);
 	    robots.add(defectRobot);    
 
-	    RoundRobinTournament tournament = new RoundRobinTournament(robots, game);
+	    RoundRobinTournament tournament = new RoundRobinTournament(robots, game, "2");
 	    Robot winner = tournament.runTournament();
 
 	    assertEquals("Defector", winner.getName());

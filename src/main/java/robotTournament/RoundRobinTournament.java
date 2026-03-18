@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class RoundRobinTournament extends Tournament
 {
 
-	public RoundRobinTournament(ArrayList<Robot> participants, Game game)
+	public RoundRobinTournament(ArrayList<Robot> participants, Game game, String ID)
 	{
-		super(participants, game);
+		super(participants, game, ID);
 	}
 
 	@Override
