@@ -10,12 +10,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+
 class RobotTournamentTest
 {
 	PrisonerDefectRobot defectRobot;
 	PrisonerOppositeRobot oppositeRobot;
 	PrisonerSameRobot sameRobot;
-	PrisonersDelimmaGame game;
+	PrisonersDilemmaGame game;
 
 	@BeforeEach
 	void setUp()
@@ -23,7 +24,7 @@ class RobotTournamentTest
 		defectRobot = new PrisonerDefectRobot("Defector");
 		oppositeRobot = new PrisonerOppositeRobot("Contrarian");
 		sameRobot = new PrisonerSameRobot("Mimic");
-		game = new PrisonersDelimmaGame(5);
+		game = new PrisonersDilemmaGame(5);
 	}
 
 	@AfterEach

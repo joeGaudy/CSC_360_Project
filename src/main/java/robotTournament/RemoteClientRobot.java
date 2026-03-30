@@ -20,7 +20,7 @@ public class RemoteClientRobot extends Robot
 		try {
 			RestClient client = RestClient.create();
 			String oppsPrevDecision = this.getOppsPrevDecision();
-			String url = "http://"+this.getIP()+":"+this.getPort()+"/decision/{oppsPrevDecision}";
+			String url = "http://" + this.getIP() + ":" + this.getPort() + "/decision?oppsPrevDecision={oppsPrevDecision}";
 			String decision = client.get()
 					.uri(url, oppsPrevDecision)
 					.retrieve()

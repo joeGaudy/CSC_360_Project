@@ -1,9 +1,9 @@
 package robotTournament;
 
-public class PrisonersDelimmaGame extends Game
+public class PrisonersDilemmaGame extends Game
 {
 
-	public PrisonersDelimmaGame(int gameRounds)
+	public PrisonersDilemmaGame(int gameRounds)
 	{
 		super(gameRounds);
 	}
