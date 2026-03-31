@@ -28,11 +28,9 @@ class TournamentServerTest
 	@BeforeEach
 	void setUp()
 	{
-		// Clear server state before each test
 		server.serverTournaments.clear();
 		server.serverClients.clear();
 		
-		// Add test tournaments
 		server.addTournament(new RoundRobinTournament(
 			new ArrayList<>(), 
 			new PrisonersDilemmaGame(5), 
@@ -63,7 +61,6 @@ class TournamentServerTest
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 		
-		// Verify client was added
 		assertThat(server.serverClients).containsKey("alice");
 		assertThat(server.serverClients.get("alice").getIP()).isEqualTo("localhost");
 		assertThat(server.serverClients.get("alice").getPort()).isEqualTo("8081");
@@ -72,14 +69,12 @@ class TournamentServerTest
 	@Test
 	void testRegisterClientDuplicateUsername()
 	{
-		// Register first client
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 
-		// Try to register same username
 		tClient.get()
 			.uri("/registerClient/alice/192.168.1.1/9000")
 			.exchange()
@@ -90,14 +85,12 @@ class TournamentServerTest
 	@Test
 	void testRegisterClientDuplicateIPPort()
 	{
-		// Register first client
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 
-		// Try to register different username, same IP/Port
 		tClient.get()
 			.uri("/registerClient/bob/localhost/8081")
 			.exchange()
@@ -108,21 +101,18 @@ class TournamentServerTest
 	@Test
 	void testRegisterForTournamentSuccess()
 	{
-		// Register a client first
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 
-		// Register client for tournament
 		tClient.get()
 			.uri("/registerRobot/tournament1/alice")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have successfully registered");
 
-		// Verify client is in tournament
 		Tournament tournament = server.serverTournaments.get("tournament1");
 		assertThat(tournament.getParticipants()).hasSize(1);
 		assertThat(tournament.getParticipants().get(0).getName()).isEqualTo("alice");
@@ -131,14 +121,12 @@ class TournamentServerTest
 	@Test
 	void testRegisterForTournamentNotFound()
 	{
-		// Register a client first
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 
-		// Try to register for non-existent tournament
 		tClient.get()
 			.uri("/registerRobot/nonexistent/alice")
 			.exchange()
@@ -149,7 +137,6 @@ class TournamentServerTest
 	@Test
 	void testRegisterForTournamentClientNotFound()
 	{
-		// Try to register non-existent client for tournament
 		tClient.get()
 			.uri("/registerRobot/tournament1/nonexistent")
 			.exchange()
@@ -160,21 +147,18 @@ class TournamentServerTest
 	@Test
 	void testRegisterForTournamentDuplicate()
 	{
-		// Register a client first
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have been successfully registered");
 
-		// Register client for tournament
 		tClient.get()
 			.uri("/registerRobot/tournament1/alice")
 			.exchange()
 			.expectBody(String.class)
 			.isEqualTo("You have successfully registered");
 
-		// Try to register same client again
 		tClient.get()
 			.uri("/registerRobot/tournament1/alice")
 			.exchange()
@@ -185,7 +169,6 @@ class TournamentServerTest
 	@Test
 	void testStartTournamentSuccess()
 	{
-		// Register clients and tournament
 		tClient.get()
 			.uri("/registerClient/alice/localhost/8081")
 			.exchange()
@@ -198,13 +181,11 @@ class TournamentServerTest
 			.expectBody(String.class)
 			.isEqualTo("You have successfully registered");
 
-		// Start tournament
 		tClient.get()
 			.uri("/runTournament/tournament1")
 			.exchange()
 			.expectBody(String.class);
 
-		// Verify tournament was removed from registration (no longer in hashmap)
 		assertThat(server.serverTournaments).doesNotContainKey("tournament1");
 	}
 
