@@ -3,9 +3,9 @@ package robotTournament;
 public class PrisonersDilemmaGame extends Game
 {
 
-	public PrisonersDilemmaGame(int gameRounds)
+	public PrisonersDilemmaGame(int gameRounds, int delay)
 	{
-		super(gameRounds);
+		super(gameRounds, delay);
 	}
 
 	@Override
@@ -44,6 +44,12 @@ public class PrisonersDilemmaGame extends Game
 			}
 			
 			notifyMoveObserver(p1.getName() + ": " + p1Decision + " | " + p2.getName() + ": " + p2Decision);
+			
+			try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 		}
 		
 		notifyScoreObserver(p1.getName() + ": " + p1.getScore() + " | " + p2.getName() + ": " + p2.getScore());

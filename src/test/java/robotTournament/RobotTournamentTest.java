@@ -24,7 +24,7 @@ class RobotTournamentTest
 		defectRobot = new PrisonerDefectRobot("Defector");
 		oppositeRobot = new PrisonerOppositeRobot("Contrarian");
 		sameRobot = new PrisonerSameRobot("Mimic");
-		game = new PrisonersDilemmaGame(5);
+		game = new PrisonersDilemmaGame(5, 0);
 	}
 
 	@AfterEach

@@ -8,6 +8,8 @@ public abstract class Tournament
 	Game game;
 	String ID;
 	
+	public Tournament() {}
+	
 	public Tournament(ArrayList<Robot> participants, Game game, String ID) {
 		this.participants = participants;
 		this.game = game;

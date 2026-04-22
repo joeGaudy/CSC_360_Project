@@ -16,7 +16,6 @@ public class TournamentModel {
         
     private String viewerIP;
     private String viewerPort;
-    private String viewerName;
     
     RestClient client = RestClient.create();
 	
@@ -47,20 +46,19 @@ public class TournamentModel {
     public void selectTournament(Tournament t) {
         this.selectedTournament = t;
         client.get()
-            .uri("/registerViewer/" + viewerIP + "/" + viewerPort + "/" + t.getID())
+        	.uri(uriBase + "/registerViewer/" + viewerIP + "/" + viewerPort + "/" + t.getID())
             .retrieve()
             .toEntity(Void.class);
     }
 
     public void unselectTournament() {
-        if (selectedTournament != null && viewerName != null) {
+        if (selectedTournament != null) {
             client.get()
-                .uri(uriBase + "/unregisterViewer/" + viewerName + "/" + selectedTournament.getID())
+                .uri(uriBase + "/unregisterViewer/" + viewerIP + "/" + viewerPort + "/" + selectedTournament.getID())
                 .retrieve()
                 .toEntity(Void.class);
         }
         selectedTournament = null;
-        viewerName = null;
     }
 
     public ObservableList<Tournament> getTournaments() {

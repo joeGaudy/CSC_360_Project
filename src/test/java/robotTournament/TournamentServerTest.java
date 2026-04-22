@@ -33,12 +33,12 @@ class TournamentServerTest
 		
 		server.addTournament(new RoundRobinTournament(
 			new ArrayList<>(), 
-			new PrisonersDilemmaGame(5), 
+			new PrisonersDilemmaGame(5, 0), 
 			"tournament1"
 		));
 		server.addTournament(new RoundRobinTournament(
 			new ArrayList<>(), 
-			new PrisonersDilemmaGame(10), 
+			new PrisonersDilemmaGame(10, 0), 
 			"tournament2"
 		));
 	}

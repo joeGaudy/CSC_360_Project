@@ -21,6 +21,7 @@ public class MovesViewController {
 
     public void setModel(TournamentModel model, ViewTransitionalModel vtm) {
         this.model = model;
+        this.vtm = vtm;
         moveDisplay.setEditable(false);
     }
 

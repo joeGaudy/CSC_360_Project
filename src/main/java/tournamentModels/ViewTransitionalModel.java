@@ -7,15 +7,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tournamentViews.MovesViewController;
 import tournamentViews.TournamentsListViewController;
+import viewerApp.ViewerEndpoint;
 
 public class ViewTransitionalModel {
 
     Stage stage;
     TournamentModel model;
+    ViewerEndpoint viewerEndpoint;
 
-    public ViewTransitionalModel(Stage stage, TournamentModel model) {
+    public ViewTransitionalModel(Stage stage, TournamentModel model, ViewerEndpoint viewerEndpoint) {
         this.stage = stage;
         this.model = model;
+        this.viewerEndpoint = viewerEndpoint;
     }
 
     public Scene getTournamentListScene() {
@@ -45,6 +48,9 @@ public class ViewTransitionalModel {
             Parent view = loader.load();
             MovesViewController cont = loader.getController();
             cont.setModel(model, this);
+            
+            viewerEndpoint.setMovesViewController(cont);
+            
             return new Scene(view);
         } catch (IOException e) {
             e.printStackTrace();
