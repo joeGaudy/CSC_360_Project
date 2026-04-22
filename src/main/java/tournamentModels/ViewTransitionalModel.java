@@ -24,7 +24,7 @@ public class ViewTransitionalModel {
     public Scene getTournamentListScene() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(TournamentsListViewController.class
-            .getResource("../tournamentViews/TournamentsListView.fxml"));
+            .getResource("TournamentsListView.fxml"));
         try {
             Parent view = loader.load();
             TournamentsListViewController cont = loader.getController();
@@ -43,7 +43,7 @@ public class ViewTransitionalModel {
     public Scene getMoveViewScene() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MovesViewController.class
-            .getResource("../tournamentViews/TournamentMovesView.fxml"));
+            .getResource("TournamentMovesView.fxml"));
         try {
             Parent view = loader.load();
             MovesViewController cont = loader.getController();
