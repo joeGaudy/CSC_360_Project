@@ -1,6 +1,8 @@
 package robotTournament;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ public class TournamentServer
 {
 	Map<String, Tournament> serverTournaments = new HashMap<>();
 	Map<String, RemoteClientRobot> serverClients = new HashMap<>();
+	Map<String, Map<String, RemoteMoveObserver>> viewers = new HashMap<>();
 	
 	private void addClient(RemoteClientRobot client) 
 	{
@@ -32,16 +35,15 @@ public class TournamentServer
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-    @GetMapping("/tournaments")
-	public Map<String, Tournament> viewTournaments()
-	{
-		return serverTournaments;
-		
+	@GetMapping("/tournaments")
+	public List<Tournament> viewTournaments() {
+	    return new ArrayList<>(serverTournaments.values());
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
     @GetMapping("/registerClient/{username}/{IP}/{port}")
-	public String registerServerClient(@PathVariable String username, @PathVariable String IP, @PathVariable String port)
+	public String registerServerClient(@PathVariable String username, 
+			@PathVariable String IP, @PathVariable String port)
 	{
 		for(RemoteClientRobot client : serverClients.values())
 		{
@@ -78,6 +80,47 @@ public class TournamentServer
 		
 		return "The winner of this tournament is: " + winner.getName();
 		
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/registerViewer/{IP}/{port}/{id}")
+	public String registerViewer(@PathVariable String IP,
+	        @PathVariable String port, @PathVariable String id) {
+	    
+	    String key = IP + ":" + port;
+	    Tournament t = serverTournaments.get(id);
+	    if (t == null) return "Tournament does not exist";
+	    
+	    viewers.putIfAbsent(id, new HashMap<>());
+	    if (viewers.get(id).containsKey(key)) {
+	        return "Already viewing this tournament";
+	    }
+	    
+	    RemoteMoveObserver viewer = new RemoteMoveObserver(IP, port);
+	    viewers.get(id).put(key, viewer);
+	    t.getGame().registerMoveObserver(viewer);
+	    return "Viewer successfully registered";
+	}
+	
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/unregisterViewer/{IP}/{port}/{id}")
+	public String unregisterViewer(@PathVariable String IP, @PathVariable String port, 
+			@PathVariable String id) {
+	    
+	    String key = IP + ":" + port;
+	    Map<String, RemoteMoveObserver> tournamentViewers = viewers.get(id);
+	    Tournament t = serverTournaments.get(id);
+	    
+	    if (t == null || tournamentViewers == null) {
+	        return "Viewer or tournament not found";
+	    }
+	    
+	    RemoteMoveObserver viewer = tournamentViewers.get(key);
+	    if (viewer != null) {
+	        t.getGame().unregisterMoveObserver(viewer);
+	        tournamentViewers.remove(key);
+	    }
+	    return "Viewer unregistered successfully";
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
