@@ -16,7 +16,8 @@ public class ViewerMain extends Application {
         String[] args = {};
         ViewerApplication.main(args);
         
-        ViewerEndpoint endpoint = ViewerEndpoint.getInstance();
+        ViewerEndpoint endpoint = new ViewerEndpoint(); 
+        endpoint = endpoint.getInstance();
         TournamentModel model = new TournamentModel();
         ViewTransitionalModel vtm = new ViewTransitionalModel(stage, model, endpoint);
         vtm.showTournamentList();

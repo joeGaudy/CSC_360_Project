@@ -6,13 +6,12 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.client.RestClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import robotTournament.Tournament;
 
 public class TournamentModel {
 
-    private ObservableList<Tournament> tournaments = FXCollections.observableArrayList();
+	public ObservableList<String> tournaments = FXCollections.observableArrayList();
     
-    private Tournament selectedTournament;
+    public String selectedTournamentID;
         
     private String viewerIP;
     private String viewerPort;
@@ -36,37 +35,38 @@ public class TournamentModel {
     }
 
     public void fetchTournaments() {
-        List<Tournament> list = client.get()
-            .uri(uriBase+"/tournaments")
-            .retrieve()
-            .body(new ParameterizedTypeReference<List<Tournament>>() {});
+    	List<String> list = client.get()
+    		    .uri(uriBase + "/tournaments")
+    		    .retrieve()
+    		    .body(new ParameterizedTypeReference<List<String>>() {});
         tournaments.setAll(list);
     }
 
-    public void selectTournament(Tournament t) {
-        this.selectedTournament = t;
+    public void selectTournament(String id) {
+        this.selectedTournamentID = id;
+
         client.get()
-        	.uri(uriBase + "/registerViewer/" + viewerIP + "/" + viewerPort + "/" + t.getID())
+            .uri(uriBase + "/registerViewer/" + viewerIP + "/" + viewerPort + "/" + id)
             .retrieve()
-            .toEntity(Void.class);
+            .body(String.class);
     }
 
     public void unselectTournament() {
-        if (selectedTournament != null) {
+        if (selectedTournamentID != null) {
             client.get()
-                .uri(uriBase + "/unregisterViewer/" + viewerIP + "/" + viewerPort + "/" + selectedTournament.getID())
+                .uri(uriBase + "/unregisterViewer/" + viewerIP + "/" + viewerPort + "/" + selectedTournamentID)
                 .retrieve()
-                .toEntity(Void.class);
+                .body(String.class);
         }
-        selectedTournament = null;
+        selectedTournamentID = null;
     }
 
-    public ObservableList<Tournament> getTournaments() {
+    public ObservableList<String> getTournaments() {
         return tournaments;
     }
 
-    public Tournament getSelectedTournament() {
-        return selectedTournament;
+    public String getSelectedTournamentID() {
+        return selectedTournamentID;
     }
     
     public String getViewerIP() { return viewerIP; }

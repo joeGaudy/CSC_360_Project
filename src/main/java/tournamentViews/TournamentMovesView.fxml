@@ -12,7 +12,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tournamentViews.MovesViewController">
    <center>
-      <TextArea fx:id="moveDisplay" prefHeight="349.0" prefWidth="412.0" BorderPane.alignment="CENTER" />
+      <TextArea id="tournamentMoves" fx:id="moveDisplay" prefHeight="349.0" prefWidth="412.0" BorderPane.alignment="CENTER" />
    </center>
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
@@ -20,7 +20,7 @@
    <right>
       <VBox alignment="BOTTOM_RIGHT" prefHeight="349.0" prefWidth="131.0">
          <children>
-            <Button fx:id="exitTournamentButton" mnemonicParsing="false" onAction="#onClickExitTournament" prefHeight="35.0" prefWidth="106.0" text="Exit Tournament">
+            <Button id="disconnectButton" fx:id="exitTournamentButton" mnemonicParsing="false" onAction="#onClickExitTournament" prefHeight="35.0" prefWidth="106.0" text="Exit Tournament">
                <VBox.margin>
                   <Insets bottom="15.0" left="10.0" right="15.0" />
                </VBox.margin>

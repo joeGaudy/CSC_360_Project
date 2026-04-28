@@ -18,7 +18,7 @@ public class ViewerEndpoint {
         instance = this;
     }
 
-    public static ViewerEndpoint getInstance() {
+    public ViewerEndpoint getInstance() {
         return instance;
     }
 

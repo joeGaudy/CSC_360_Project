@@ -1,16 +1,18 @@
 package robotTournament;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Map;
-
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 @SpringBootTest(
@@ -46,10 +48,15 @@ class TournamentServerTest
 	@Test
 	void testViewTournaments()
 	{
-		tClient.get()
-			.uri("/tournaments")
-			.exchange()
-			.expectBody(Map.class);
+	    tClient.get()
+	        .uri("/tournaments")
+	        .exchange()
+	        .expectBody(new ParameterizedTypeReference<List<String>>() {})
+	        .value(list -> {
+	            assertEquals(2, list.size());
+	            assertTrue(list.contains("tournament1"));
+	            assertTrue(list.contains("tournament2"));
+	        });
 	}
 
 	@Test

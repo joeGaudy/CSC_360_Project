@@ -14,6 +14,9 @@ public abstract class Game
 		this.delay = delay;
 	}
 	
+	public Game() {
+	}
+	
 	public abstract void playGame(Robot p1, Robot p2);
 	
 	public void registerScoreObserver(ScoreObserver scoreObs) {
@@ -42,6 +45,14 @@ public abstract class Game
 		for (MoveObserver moveObs : moveObservers) {
 			moveObs.updateMove(move);
 		}
+	}
+	
+	public int getGameRounds() {
+	    return gameRounds;
+	}
+
+	public int getDelay() {
+	    return delay;
 	}
 	
 }

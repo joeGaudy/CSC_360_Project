@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import robotTournament.Tournament;
 import tournamentModels.TournamentModel;
 import tournamentModels.ViewTransitionalModel;
 
@@ -25,7 +23,7 @@ public class TournamentsListViewController {
     private Button refreshButton;
 
     @FXML
-    private ListView<Tournament> tournamentListView;
+    private ListView<String> tournamentListView;
 
     private TournamentModel model;
     private ViewTransitionalModel vtm;
@@ -34,11 +32,23 @@ public class TournamentsListViewController {
         this.model = model;
         this.vtm = vtm;
         tournamentListView.setItems(model.getTournaments());
+        
+        tournamentListView.getSelectionModel().selectedItemProperty().addListener(
+        	    (obs, oldVal, newVal) -> {
+        	        if (newVal != null) {
+        	            model.selectTournament(newVal);
+        	            vtm.showMoveView();
+        	        }
+        	    }
+        	);
     }
 
     @FXML
     void onClickConnect(ActionEvent event) {
         model.connect(ipTextBox.getText(), portTextBox.getText());
+        
+        ipTextBox.clear();
+        portTextBox.clear();
     }
 
     @FXML
@@ -46,12 +56,5 @@ public class TournamentsListViewController {
         model.fetchTournaments();
     }
 
-    @FXML
-    void onClickTournament(MouseEvent event) {
-        Tournament t = tournamentListView.getSelectionModel().getSelectedItem();
-        if (t != null) {
-            model.selectTournament(t);
-            vtm.showMoveView();
-        }
-    }
+    
 }

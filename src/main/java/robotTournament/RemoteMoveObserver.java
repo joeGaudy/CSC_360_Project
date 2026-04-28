@@ -12,23 +12,23 @@ public class RemoteMoveObserver implements MoveObserver
 	        this.port = port;
 	    }
 
-	@Override
-	public void updateMove(String move)
-	{
-		// TODO Auto-generated method stub
-		try {
-			RestClient client = RestClient.create();
-			String url = "http://" + this.getIP() + ":" + this.getPort();
-			client.post()
-					.uri(url+"/move")
-					.body(move)
-					.retrieve()
-					.toEntity(Void.class);
-			
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-	}
+	 @Override
+	 public void updateMove(String move) {
+	     try {
+	         RestClient client = RestClient.create();
+
+	         String url = "http://" + getIP() + ":" + getPort() + "/move";
+
+	         client.post()
+	             .uri(url)
+	             .body(move)
+	             .retrieve()
+	             .toBodilessEntity();
+
+	     } catch (Exception e) {
+	         System.err.println(e.getMessage());
+	     }
+	 }
 	
 	public String getIP() { return IP; }
 	public String getPort() { return port; }

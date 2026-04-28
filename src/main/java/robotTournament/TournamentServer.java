@@ -2,7 +2,6 @@ package robotTournament;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -36,8 +35,8 @@ public class TournamentServer
 	
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/tournaments")
-	public List<Tournament> viewTournaments() {
-	    return new ArrayList<>(serverTournaments.values());
+	public ArrayList<String> viewTournaments() {
+	    return new ArrayList<>(serverTournaments.keySet());
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
