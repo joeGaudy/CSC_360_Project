@@ -15,11 +15,12 @@ public class ViewerMain extends Application {
     public void start(Stage stage) throws Exception {
         String[] args = {};
         ViewerApplication.main(args);
-        
-        ViewerEndpoint endpoint = new ViewerEndpoint(); 
-        endpoint = endpoint.getInstance();
+
+        ViewerEndpoint endpoint = ViewerEndpoint.getInstance();
+
         TournamentModel model = new TournamentModel();
         ViewTransitionalModel vtm = new ViewTransitionalModel(stage, model, endpoint);
+
         vtm.showTournamentList();
         stage.show();
     }

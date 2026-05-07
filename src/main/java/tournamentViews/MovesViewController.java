@@ -33,5 +33,6 @@ public class MovesViewController {
     void onClickExitTournament(ActionEvent event) {
         model.unselectTournament();
         vtm.showTournamentList();
+        model.fetchTournaments();
     }
 }
