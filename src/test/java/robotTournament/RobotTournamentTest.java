@@ -14,16 +14,20 @@ import java.util.ArrayList;
 class RobotTournamentTest
 {
 	PrisonerDefectRobot defectRobot;
+	PrisonerDefectRobot defectRobot2;
 	PrisonerOppositeRobot oppositeRobot;
 	PrisonerSameRobot sameRobot;
+	PrisonerSameRobot sameRobot2;
 	PrisonersDilemmaGame game;
 
 	@BeforeEach
 	void setUp()
 	{
 		defectRobot = new PrisonerDefectRobot("Defector");
+		defectRobot2 = new PrisonerDefectRobot("Defector2");
 		oppositeRobot = new PrisonerOppositeRobot("Contrarian");
 		sameRobot = new PrisonerSameRobot("Mimic");
+		sameRobot2 = new PrisonerSameRobot("Mimic2");
 		game = new PrisonersDilemmaGame(5, 0);
 	}
 
@@ -178,5 +182,20 @@ class RobotTournamentTest
 		game.playGame(defectRobot, oppositeRobot);
 		String content = Files.readString(Paths.get("test_scores.txt"));
 		assertFalse(content.isEmpty());
+	}
+	
+	@Test
+	void testCooperationBonusModifier() {
+	    Game wrappedGame = new CooperationBonusModifier(game, 50);
+
+	    wrappedGame.playGame(sameRobot, sameRobot2);
+	    
+	    assertEquals(65, sameRobot.getScore());
+	    assertEquals(65, sameRobot2.getScore());
+	    
+	    wrappedGame.playGame(defectRobot, defectRobot2);
+	    
+	    assertEquals(5, defectRobot.getScore());
+	    assertEquals(5, defectRobot2.getScore());
 	}
 }
