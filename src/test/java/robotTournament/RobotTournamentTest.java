@@ -198,4 +198,21 @@ class RobotTournamentTest
 	    assertEquals(5, defectRobot.getScore());
 	    assertEquals(5, defectRobot2.getScore());
 	}
+	
+	@Test
+	void testGameModifierRegistersObserversToWrappedGame() {
+
+	    Game baseGame = new PrisonersDilemmaGame(5, 0);
+	    Game modifier = new CooperationBonusModifier(baseGame, 50);
+
+	    
+	    MoveObserver moveObs = new MoveLoggingSystem("test");
+	    ScoreObserver scoreObs = new ScoreLoggingSystem("test");
+
+	    modifier.registerMoveObserver(moveObs);
+	    modifier.registerScoreObserver(scoreObs);
+
+	    assertTrue(baseGame.moveObservers.contains(moveObs));
+	    assertTrue(baseGame.scoreObservers.contains(scoreObs));
+	}
 }
