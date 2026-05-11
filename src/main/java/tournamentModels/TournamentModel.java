@@ -26,7 +26,7 @@ public class TournamentModel {
         } catch (Exception e) {
             viewerIP = "localhost";
         }
-        viewerPort = "8081";
+        viewerPort = "42069";
     }
 
     public void connect(String ip, String port) {
